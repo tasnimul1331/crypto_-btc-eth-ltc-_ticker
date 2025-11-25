@@ -13,7 +13,7 @@ A lightweight Flutter app that displays live cryptocurrency prices with a clean,
 
 ## Screenshot
 
-Place a screenshot at `assets/images/screenshot.png` (example attached in this repo). The preview above assumes that path.
+Place a screenshot at `assets/images/preview.png` (example attached in this repo). The preview above assumes that path.
 
 ## Requirements
 
@@ -43,11 +43,11 @@ Place a screenshot at `assets/images/screenshot.png` (example attached in this r
 ## Configuration
 
 - If the app requires an API key, create a config file or set an environment variable as documented in the code (search for `API_KEY`, `apiKey`, or `config` in the project).
-- Add the screenshot to `assets/images/screenshot.png` and ensure `pubspec.yaml` includes the assets folder:
+- Add the screenshot to `assets/images/preview.png` and ensure `pubspec.yaml` includes the assets folder:
   ```yaml
   flutter:
     assets:
-      - assets/images/screenshot.png
+      - assets/images/preview.png
   ```
 
 ## Project structure (high level)
