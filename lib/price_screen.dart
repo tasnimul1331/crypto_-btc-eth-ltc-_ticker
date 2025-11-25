@@ -15,15 +15,17 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   late FixedExtentScrollController controller;
   String selectedCurrency = 'USD';
-  double? bitcoinValue = 0;
-  double? ethValue = 0;
-  double? ltcValue = 0;
+  Map<String, double?> cryptoValue = {};
   String? allCurrencies = "";
+  String? selectedCrypto = "";
   Map<String, Map<String, String>>? allData = {};
 
   void getAllCurrencies() {
     for (String currency in currenciesList) {
       allCurrencies = allCurrencies! + currency + ",";
+    }
+    for (String crypto in cryptoList) {
+      selectedCrypto = selectedCrypto! + coinId[crypto]! + ",";
     }
   }
 
@@ -33,7 +35,7 @@ class _PriceScreenState extends State<PriceScreen> {
     try {
       final network = Network(
         'https://api.coingecko.com/api/v3/simple/price'
-        '?ids=bitcoin,ethereum,litecoin'
+        '?ids=$selectedCrypto'
         '&vs_currencies=${allCurrencies!.toLowerCase()}',
       );
 
@@ -70,19 +72,19 @@ class _PriceScreenState extends State<PriceScreen> {
     if (allData == null) {
       print('Unable to fetch data');
       setState(() {
-        bitcoinValue = null;
-        ethValue = null;
-        ltcValue = null;
+        for (String crypto in cryptoList) {
+          cryptoValue[crypto] = null;
+        }
         allCurrencies = "";
       });
       return;
     }
     setState(() {
-      bitcoinValue = parseValue("BTC", selectedCurrency);
-      ethValue = parseValue("ETH", selectedCurrency);
-      ltcValue = parseValue("LTC", selectedCurrency);
+      for (String crypto in cryptoList) {
+        cryptoValue[crypto] = parseValue(crypto, selectedCurrency);
+      }
     });
-    print(bitcoinValue);
+    print(cryptoValue);
   }
 
   Future<void> loadData() async {
@@ -151,7 +153,6 @@ class _PriceScreenState extends State<PriceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('🤑 Coin Ticker'),
-
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
@@ -174,12 +175,8 @@ class _PriceScreenState extends State<PriceScreen> {
               children: [
                 for (String crypto in cryptoList)
                   Reuseble().buildCryptoCard(
-                    crypto == 'BTC'
-                        ? (bitcoinValue?.toStringAsFixed(2) ?? '?')
-                        : crypto == 'ETH'
-                        ? (ethValue?.toStringAsFixed(2) ?? '?')
-                        : (ltcValue?.toStringAsFixed(2) ?? '?'),
-
+                    crypto,
+                    cryptoValue[crypto]?.toStringAsFixed(2) ?? '?',
                     selectedCurrency,
                   ),
               ],
