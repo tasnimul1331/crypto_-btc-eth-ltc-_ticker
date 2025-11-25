@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
 import 'services/network.dart';
 import 'reuseble.dart';
+import 'dart:ui';
 
 class PriceScreen extends StatefulWidget {
   const PriceScreen({super.key});
@@ -168,18 +169,22 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (String crypto in cryptoList)
-                  Reuseble().buildCryptoCard(
-                    crypto,
-                    cryptoValue[crypto]?.toStringAsFixed(2) ?? '?',
-                    selectedCurrency,
-                  ),
-              ],
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (String crypto in cryptoList)
+                      Reuseble().buildCryptoCard(
+                        crypto,
+                        cryptoValue[crypto]?.toStringAsFixed(2) ?? '?',
+                        selectedCurrency,
+                      ),
+                  ],
+                ),
+              ),
             ),
           ),
 
@@ -188,7 +193,6 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            // child: getPickerWidget(),
             child: getIOSCupertinoPickerItems(),
           ),
         ],

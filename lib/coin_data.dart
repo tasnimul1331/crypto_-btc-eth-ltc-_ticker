@@ -22,7 +22,19 @@ const List<String> currenciesList = [
   'ZAR',
 ];
 
-const List<String> cryptoList = ['BTC', 'ETH', 'LTC', 'BNB', 'XRP', 'DOGE'];
+const List<String> cryptoList = [
+  'BTC',
+  'ETH',
+  'LTC',
+  'BNB',
+  'XRP',
+  'DOGE',
+  'LUNA',
+  'ADA',
+  'SOL',
+  'DOT',
+  'AVAX',
+];
 
 const Map<String, String> coinId = {
   "BTC": "bitcoin",
@@ -31,6 +43,11 @@ const Map<String, String> coinId = {
   "BNB": "binancecoin",
   "XRP": "ripple",
   "DOGE": "dogecoin",
+  "LUNA": "terra-luna",
+  "ADA": "cardano",
+  "SOL": "solana",
+  "DOT": "polkadot",
+  "AVAX": "avalanche-2",
 };
 
 class CoinData {}
