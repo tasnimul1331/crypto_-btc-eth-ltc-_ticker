@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
 import 'services/network.dart';
 import 'reuseble.dart';
-import 'dart:ui';
 
 class PriceScreen extends StatefulWidget {
   const PriceScreen({super.key});
